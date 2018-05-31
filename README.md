@@ -1,6 +1,21 @@
 # VektoriukasObj
 
-Valdiškas Vektorius:
+# Šalti dalykai:
+
+    Pasirodo, kad typedef yra labai labai naudingas dalykas. Dėkui, už sutaupytą laiką.
+
+        typedef unsigned int   size_type;
+        typedef T   value_type;
+        typedef T &    reference;
+        typedef const T &   const_reference;
+        typedef T *  pointer;
+        typedef const T * const_pointer;
+        typedef T * iterator;
+        typedef const T *  const_iterator;
+        typedef std::reverse_iterator<iterator> reverse_iterator;
+        typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+
+# Valdiškas Vektorius:
 
 |Duomenų kiekis|Laikas   |
 |--------------|---------|
@@ -10,7 +25,7 @@ Valdiškas Vektorius:
 |10000000      |   11.26s| 
 
 
-Mano Vektorius:
+# Mano Vektorius:
 
 |Duomenų kiekis|Laikas   |
 |--------------|---------|
