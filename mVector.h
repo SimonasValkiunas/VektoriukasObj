@@ -73,7 +73,7 @@ template <class T> class mVector
         void shrink_to_fit();
 
         //Modifiers
-
+        template <class ... Args> iterator emplace(const_iterator, Args && ... args);
         void push_back(const T &);
         void pop_back();
         iterator insert(const_iterator, const T &);
@@ -287,7 +287,7 @@ template <class T> class mVector
 
     template <class T>
     typename mVector<T>::reference mVector<T>::operator [](typename mVector<T>::size_type idx) {
-        return arr[idx-1];
+        return arr[idx];
     }
 
     template <class T>
@@ -376,16 +376,16 @@ template <class T> class mVector
 
     }
     template <class T>
-    T* mVector<T>::insert( mVector<T>::const_iterator it, const T &n) {
+    typename mVector<T>::iterator mVector<T>::insert( mVector<T>::const_iterator it, const T &n) {
 
         mVector<T>::iterator iit = &arr[it - arr];
         if (m_Size == m_Capacity) {
             m_Capacity <<= 2;
             reallocate();
         }
-        memmove(iit + 1, iit, (m_Size - (it - arr)-1) * sizeof(T));
-        (*(iit-1)) = n;
-        m_Size++;
+        memmove(iit + 1, iit, (m_Size - (it - arr)) * sizeof(T));
+        ++m_Size;
+        *(iit) = n;
         return iit;
     }
     template <class T>
@@ -434,6 +434,18 @@ template <class T> class mVector
             arr[i].~T();
         }
         m_Size = 0;
+    }
+    template <typename T>
+    template <class ... Args>
+    typename mVector<T>::iterator mVector<T>::emplace(const_iterator it, Args && ... args) {
+        mVector<T>::iterator iit = &arr[it - arr];
+        if (m_Size == m_Capacity) {
+            m_Capacity <<= 2;
+            reallocate();
+        }
+        arr[m_Size - *iit] = std::move( T( std::forward<Args>(args) ... ) );
+        *iit =  T( std::forward<Args>(args) ... );
+        ++m_Size;
     }
 
 

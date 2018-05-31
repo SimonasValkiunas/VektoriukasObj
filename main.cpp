@@ -4,7 +4,7 @@
 #include <chrono>
 #include "mVector.h"
 
-std::vector<int> v1;
+/*std::vector<int> v1;
 mVector<int> v2;
 
 using get_time = std::chrono::steady_clock ;
@@ -28,22 +28,33 @@ void ZaibasMcVynas(mVector<int> &v, int i){
     auto tv2 = t4-t3;
     std::cout<<"Mano vektoriukas  " << std::to_string(i)<<" vnt  "<<(double)(std::chrono::duration_cast<std::chrono::microseconds>(tv2).count())/1000000<< "  seconds"<<std::endl;
     v2.clear();
-}
+}*/
 
 
 
 int main() {
 
 
+
+
+    mVector<int> v{1,2,3,4};
+    std::cout<< v.size() << " -  v.size() "<< std::endl;
+    std::cout<< v.capacity()<< " -  v.capacity()"  << std::endl;
+    v.clear();
+    v.insert(v.begin(), 5);
+    v.emplace(v.begin()+2,10);
+    v.resize(3);
+    for(int i =0; i<v.size(); i++){
+        std::cout<< v[i]<< std::endl;
+    }
+    v.shrink_to_fit();
+/*
 for (int x=10000; x <= 10000000; ){
      x *= 10;
     ValdiskasVektorius(v1,x);
     ZaibasMcVynas(v2,x);
 }
-
-
-
-
+*/
 
     return 0;
 }
